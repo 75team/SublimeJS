@@ -1,0 +1,64 @@
+[
+	{ 
+		"keys": ["ctrl+alt+h"], 
+		"command": "js_hint", 
+	    "context": [{
+      		"operand": "source.js, text.html",
+      		"operator": "equal",
+      		"match_all": true,
+       		"key": "selector"      		
+    	}]
+	},
+	{ 
+		"keys": ["ctrl+alt+j"], 
+		"command": "js_console"
+	},
+	{
+		"keys" : ["up"],
+		"command": "js_history_backward",
+	    "context": [{
+      		"operand": "console.text - console.text.log",
+      		"operator": "equal",
+      		"match_all": true,
+       		"key": "selector"      		
+    	}]
+	},
+	{
+		"keys" : ["down"],
+		"command": "js_history_forward",
+	    "context": [{
+      		"operand": "console.text - console.text.log",
+      		"operator": "equal",
+      		"match_all": true,
+       		"key": "selector"      		
+    	}]
+	},
+	{
+		"keys" : ["backspace"],
+		"command": "key_backspace",
+	    "context": [{
+      		"operand": "console.text - console.text.log",
+      		"operator": "equal",
+      		"match_all": true,
+       		"key": "selector"      		
+    	}]
+	},
+	{ 
+		"keys": ["enter"], 
+		"command": "js_exec", 
+	    "context": [{
+      		"operand": "console.text - console.text.log",
+      		"operator": "equal",
+      		"match_all": true,
+       		"key": "selector"      		
+    	}]
+	},
+	{ 
+		"keys": ["ctrl+alt+g"], 
+		"command": "js_command",
+		"args": {
+			"module" : "test",
+			"command" : "HelloWorld"
+		} 
+	}
+]
