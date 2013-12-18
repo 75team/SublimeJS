@@ -1,11 +1,11 @@
-# sublime-v8
+# Sublime JS
 	
 Use [Google v8 engine](http://code.google.com/p/v8/) to write plugins in JavaScript
 
 ## Writing plugin in JavaScript:
 
 ```javascript
-/** boot.js **/
+/** index.js **/
 
 defineCommand("Hello", require("hello.command"));
 ```
