@@ -45,3 +45,8 @@ module.exports = function(view, edit){
 ## Examples:
 
 [SublimeJS_Samples](https://github.com/akira-cn/SublimeJS_Samples)
+
+## Thanks
+
+Thanks to [emmet-sublime](https://github.com/sergeche/emmet-sublime).
+Some idea is borrowed from emmet-sublime. :-)
