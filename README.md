@@ -4,6 +4,29 @@ Use [Google v8 engine](http://code.google.com/p/v8/) to write plugins in JavaScr
 
 ## Writing plugin in JavaScript:
 
+* add a package.json file:
+
+```json
+{
+  "name": "JSDemo",
+  "description": "demo plugin powered by SublimeJS",
+  "version": "0.1.0",
+  "author": {
+    "name": "akira-cn",
+    "email": "akira.cn@gmail.com"
+  },
+  "main": "index.js",
+  "licenses": [
+    {
+      "type": "The MIT License",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ]
+}
+```
+
+* add Javascript files:
+
 ```javascript
 /** index.js **/
 
