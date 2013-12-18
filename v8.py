@@ -46,6 +46,7 @@ mods_load_order = [
 	'SublimeJS.core.semver',
 	'SublimeJS.loader.pyv8loader',
 	'SublimeJS.core.file',
+	'SublimeJS.core.http',
 	'SublimeJS.core.process',
 	'SublimeJS.core.child_process',
 	'SublimeJS.core.fs',

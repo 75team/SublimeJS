@@ -156,11 +156,6 @@ class Context():
 		finally:
 			self._js_ctx.leave()
 
-	def callFunc(self, func, *args):
-		self._js_ctx.enter()
-		func.apply(None, args[2:])
-		self._js_ctx.leave()
-
 	def eval(self, code):
 		self._js_ctx.enter()
 		

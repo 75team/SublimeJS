@@ -156,7 +156,11 @@ global.when=require('when');
 
 var fs = require('fs');
 
-//console.log(fs.statSync(sublime.packages_path()))
+/*fs.stat(sublime.packages_path(), function(err, stats){
+	console.log(stats);
+});
+console.log('ok');*/
+
 var plugins = fs.readdirSync(sublime.packages_path());
 plugins = plugins.concat(fs.readdirSync(sublime.installed_packages_path()));
 plugins.forEach(function(plugin){
@@ -172,4 +176,8 @@ plugins.forEach(function(plugin){
 	}
 });
 
-//console.log(sublime.load_settings('demo.sublime-settings').get('value'));
+/*var http = require('http');
+
+http.get("http://www.baidu.com", function(res){
+	console.log(res.read());
+});*/
