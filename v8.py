@@ -124,11 +124,11 @@ class EventDispatcher(sublime_plugin.EventListener):
 	def on_text_command(self, view, command_name, args):	
 		if(ctx):
 			return ctx.call('global.E.emit',['text_command', view, command_name, args])
-		return True
+		return (command_name, args)
 	def on_window_command(self, window, command_name, args):
 		if(ctx):
 			return ctx.call('global.E.emit',['window_command', window, command_name, args])
-		return True
+		return (command_name, args)
 	def post_text_command(self, view, command_name, args):
 		if(ctx):
 			return ctx.call('global.E.emit',['post_text_command', view, command_name, args])
@@ -147,7 +147,7 @@ class EventDispatcher(sublime_plugin.EventListener):
 			ret = convert(ctx.call('global.E.on_query_completions',[view, prefix, locations]))
 			ctx._js_ctx.leave()
 			return ret
-		return True	
+		return None	
 
 ##########################
 # Base Class of JSCommand
