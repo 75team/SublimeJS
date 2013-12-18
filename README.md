@@ -18,3 +18,7 @@ module.exports = function(view, edit){
 	view.insert(edit, 0, "HelloWorld");
 }
 ```
+
+## Examples:
+
+[SublimeJS_Samples](https://github.com/akira-cn/SublimeJS_Samples)
