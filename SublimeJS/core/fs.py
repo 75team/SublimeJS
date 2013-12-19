@@ -29,6 +29,7 @@ class FileSystem:
 		
 		def _call(path, flag, encoding, callback, *args):
 			err = None
+			content = None
 			try:
 				f = codecs.open(path, flag, encoding);
 				content = f.read()
@@ -139,6 +140,7 @@ class FileSystem:
 	def readdir(self, path, callback):
 		def _call(path, callback, *args):
 			err = None
+			files = JSArray([])
 			try:
 				files = JSArray(os.listdir(path))
 			except Exception as e:
@@ -159,6 +161,7 @@ class FileSystem:
 	def exists(self, path, callback):
 		def _call(path, callback, *args):
 			err = None
+			r = False
 			try:
 				r = os.path.exists(path)
 			except Exception as e:
@@ -179,6 +182,7 @@ class FileSystem:
 	def stat(self, path, callback):
 		def _call(path, callback, *args):
 			err = None
+			stats = None
 			try:
 				stats = self.statSync(path)
 			except Exception as e:
