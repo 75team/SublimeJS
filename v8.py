@@ -262,10 +262,6 @@ class SublimeLoaderDelegate(LoaderDelegate):
 				for i in globals()['js_loading_queue']:
 					ctx.load_js_file(i)
 
-		# if('Update_JS' not in globals() or globals()['Update_JS'] == True):
-		#	globals()['Update_JS'] = False
-		#	ctx.reload()
-
 	def on_error(self, exit_code=-1, thread=None):
 		self.state = 'error'
 		sublime.set_timeout(lambda: show_pyv8_error(exit_code), 0)
@@ -298,6 +294,10 @@ class JSCore(Context):
 	def __init__(self, logger):
 		self.console = Console(logger);
 		Context.__init__(self, logger)
+		if('firstload__' not in globals()):
+			globals()['firstload__'] = True
+		else:
+			globals()['firstload__'] = False
 
 	def registerCommand(self, name, commandType):
 		name = name + 'Command'
@@ -308,18 +308,29 @@ class JSCore(Context):
 			if(commandType == 'WindowCommand'):
 				globals()[fullName] = type(name, (JSWindowCommand,), {})
 			if(commandType == 'ApplicationCommand'):
-				globals()[fullName] = type(name, (ApplicationCommand,), {})
+				globals()[fullName] = type(name, (JSApplicationCommand,), {})
+
 			if(not self._reload):
-				sublime.set_timeout(lambda:sublime_plugin.reload_plugin('SublimeJS.v8'), 50)
 				self._reload = True
+		
+		if(self._reload):
+			self.reload(not globals()['firstload__'])
 
 	@property 
 	def sublime(self):
 		return sublime
 
-	def reload(self):
-		sublime_plugin.reload_plugin('SublimeJS.v8');
-		
+	def reload(self, force=False):
+		if(force):
+			def _reload():
+				sublime.active_window().active_view().run_command('save')
+				sublime.active_window().run_command('close')
+
+			sublime.active_window().open_file(__file__)
+			sublime.set_timeout(_reload, 200)
+		else:
+			sublime.set_timeout(lambda:sublime_plugin.reload_plugin('SublimeJS.v8'),200)
+
 	def md5(self, str):
 		return hashlib.md5(str).hexdigest()
 
