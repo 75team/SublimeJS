@@ -262,9 +262,9 @@ class SublimeLoaderDelegate(LoaderDelegate):
 				for i in globals()['js_loading_queue']:
 					ctx.load_js_file(i)
 
-		if('Update_JS' not in globals() or globals()['Update_JS'] == True):
-			globals()['Update_JS'] = False
-			ctx.reload()
+		# if('Update_JS' not in globals() or globals()['Update_JS'] == True):
+		#	globals()['Update_JS'] = False
+		#	ctx.reload()
 
 	def on_error(self, exit_code=-1, thread=None):
 		self.state = 'error'
@@ -294,18 +294,24 @@ class Console:
 import hashlib, urllib
 
 class JSCore(Context):
+	_reload = False
 	def __init__(self, logger):
 		self.console = Console(logger);
 		Context.__init__(self, logger)
 
 	def registerCommand(self, name, commandType):
 		name = name + 'Command'
-		if(commandType == 'TextCommand'):
-			globals()[name] = type(name, (JSTextCommand,), {})
-		if(commandType == 'WindowCommand'):
-			globals()[name] = type(name, (JSWindowCommand,), {})
-		if(commandType == 'ApplicationCommand'):
-			globals()[name] = type(name, (ApplicationCommand,), {})
+		fullName = '<' + commandType + '>SublimeJS.v8.' + name;
+		if(fullName not in globals()):
+			if(commandType == 'TextCommand'):
+				globals()[fullName] = type(name, (JSTextCommand,), {})
+			if(commandType == 'WindowCommand'):
+				globals()[fullName] = type(name, (JSWindowCommand,), {})
+			if(commandType == 'ApplicationCommand'):
+				globals()[fullName] = type(name, (ApplicationCommand,), {})
+			if(not self._reload):
+				sublime.set_timeout(lambda:sublime_plugin.reload_plugin('SublimeJS.v8'), 50)
+				self._reload = True
 
 	@property 
 	def sublime(self):

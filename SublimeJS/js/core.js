@@ -17,7 +17,6 @@ function mixin(des, src, map){
 	}
 
 	map = map || function(d, s, i, des, src){
-		//这里要加一个des[i]，是因为要照顾一些不可枚举的属性
 		if(!(des[i] || (i in des))){
 				return s;
 		}
@@ -32,7 +31,6 @@ function mixin(des, src, map){
 
 	for (var i in src) {
 		des[i] = map(des[i], src[i], i, des, src);
-		//如果返回undefined，尝试删掉这个属性
 		if(des[i] === undefined) delete des[i];		
 	}
 	return des;				
@@ -56,11 +54,31 @@ function alert(obj){
 
 global.__commands = {};
 
-function defineCommand(name, type, handler){
-	if(typeof(type) == 'function'){
-		handler = type;
-		type = 'TextCommand';
+function defineCommand(options, handler){
+	var name, type;
+	
+	if(typeof(options) == 'string'){
+		name = options;
+		type = 'text';
+	}else{
+		name = options.name;
+		type = options.type;
 	}
+
+	switch(type){
+		case 'window':
+			type = 'WindowCommand';
+			break;
+		case 'text':
+			type = "TextCommand";
+			break;
+		case 'application':
+			type = "ApplicationCommand";
+			break;
+		default:
+			break;
+	}
+
 	global.__commands[name.toLowerCase()] = handler;
 	global.registerCommand(name, type);
 }
