@@ -1,8 +1,8 @@
 # Sublime JS
 	
-Use [Google v8 engine](http://code.google.com/p/v8/) to write plugins in JavaScript
+Use [Google v8 engine](http://code.google.com/p/v8/) to write plugins with JavaScript
 
-## Writing plugin in JavaScript:
+## Writing plugin with JavaScript:
 
 * add a package.json file:
 
